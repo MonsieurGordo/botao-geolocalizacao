@@ -26,21 +26,26 @@
     </style>
     <script>
         function copiarCoordenadas() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition((position) => {
-                    const coords = `${position.coords.latitude}, ${position.coords.longitude}`;
-                    navigator.clipboard.writeText(coords).then(() => {
-                        alert("Coordenadas copiadas: " + coords);
-                    }).catch((err) => {
-                        alert("Erro ao copiar coordenadas: " + err);
-                    });
-                }, (error) => {
-                    alert("Erro ao acessar a localização: " + error.message);
-                });
-            } else {
-                alert("Geolocalização não é suportada neste dispositivo.");
-            }
+            window.parent.postMessage("geoRequest", "*");
         }
+        window.addEventListener("message", (event) => {
+            if (event.data === "geoResponse" && event.origin.includes("sites.google.com")) {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition((position) => {
+                        const coords = `${position.coords.latitude}, ${position.coords.longitude}`;
+                        navigator.clipboard.writeText(coords).then(() => {
+                            alert("Coordenadas copiadas: " + coords);
+                        }).catch((err) => {
+                            alert("Erro ao copiar coordenadas: " + err);
+                        });
+                    }, (error) => {
+                        alert("Erro ao acessar a localização: " + error.message);
+                    });
+                } else {
+                    alert("Geolocalização não é suportada neste dispositivo.");
+                }
+            }
+        });
     </script>
 </head>
 <body>
