@@ -1,0 +1,49 @@
+<html>
+<head>
+    <style>
+        .geo-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 50%;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 30px;
+        }
+        .geo-button:hover {
+            background-color: #0056b3;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+    <script>
+        function copiarCoordenadas() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    const coords = `${position.coords.latitude}, ${position.coords.longitude}`;
+                    navigator.clipboard.writeText(coords).then(() => {
+                        alert("Coordenadas copiadas: " + coords);
+                    }).catch((err) => {
+                        alert("Erro ao copiar coordenadas: " + err);
+                    });
+                }, (error) => {
+                    alert("Erro ao acessar a localização: " + error.message);
+                });
+            } else {
+                alert("Geolocalização não é suportada neste dispositivo.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <button class="geo-button" onclick="copiarCoordenadas()">📍</button>
+</body>
+</html>
