@@ -10,9 +10,10 @@
                         const latitude = position.coords.latitude;
                         const longitude = position.coords.longitude;
                         const coordenadas = `${latitude},${longitude}`;
-                        const formUrl = "https://docs.google.com/forms/d/e/11ldD0eLL8wsmmGT228y6Myp6LF5mc3i-iyQej0ldO_M/previewResponse";
+                        const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLSeoujCdQRFIhwUikAaFrJygVfNTWZsLiRd4AJtyMLevIuFG7A/formResponse";  // <-- Substitua pelo link correto
                         const entryId = "entry.1396622586";
                         const redirectUrl = `${formUrl}?${entryId}=${coordenadas}`;
+                        console.log("Redirecionando para:", redirectUrl);  // <-- Para ver se está gerando o link certo
                         window.location.href = redirectUrl;
                     },
                     (error) => {
